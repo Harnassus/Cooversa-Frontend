@@ -1,5 +1,5 @@
 import type {RequestHandler} from "@sveltejs/kit";
-import {sendWelcomeEmail} from "./helpers";
+import {sendSlackEmail, sendWelcomeEmail} from "./helpers";
 
 export const GET: RequestHandler = async ({url}) => {
 
@@ -16,6 +16,7 @@ export const GET: RequestHandler = async ({url}) => {
 
     try {
         await sendWelcomeEmail(email, name);
+        await sendSlackEmail(email, name);
     } catch (error: any) {
         return new Response(
             JSON.stringify({
